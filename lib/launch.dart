@@ -31,6 +31,18 @@ class LaunchPage extends StatelessWidget {
             textAlign: TextAlign.center,
           ),
         ),
+        const SizedBox(
+          height: 10.0,
+        ),
+        Button(
+          onPressed: () {
+            Game.launch(Expansion.xp2);
+          },
+          child: const Text(
+            "Launch Perseus Mandate.",
+            textAlign: TextAlign.center,
+          ),
+        ),
       ],
     ));
   }

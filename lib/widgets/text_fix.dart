@@ -1,16 +1,21 @@
 import 'package:fluent_ui/fluent_ui.dart';
+import 'package:fear_patcher/core/game.dart';
 
 class TextFixWidget extends StatefulWidget {
   const TextFixWidget({super.key});
 
-  static const Map<int, String> textFixes = {0: "None", 1: "1080", 2: "1440"};
+  static const Map<TextScale, String> textFixes = {
+    TextScale.none: "None",
+    TextScale.big: "1080",
+    TextScale.bigger: "1440"
+  };
 
   @override
   State<TextFixWidget> createState() => _TextFixWidgetState();
 }
 
 class _TextFixWidgetState extends State<TextFixWidget> {
-  int currentlySelectedTextFix = 0;
+  TextScale currentlySelectedTextFix = Game.getTextScale();
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +30,8 @@ class _TextFixWidgetState extends State<TextFixWidget> {
               return MenuFlyoutItem(
                   text: Text(TextFixWidget.textFixes[e]!),
                   selected: currentlySelectedTextFix == e,
-                  onPressed: () {
+                  onPressed: () async {
+                    await Game.changeTextScale(e);
                     setState(() {
                       currentlySelectedTextFix = e;
                     });

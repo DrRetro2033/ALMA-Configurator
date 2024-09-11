@@ -1,14 +1,19 @@
 import "package:fluent_ui/fluent_ui.dart";
+import "package:fear_patcher/core/dgvoodoo2.dart";
+
+import 'package:fear_patcher/core/game.dart';
 
 class DGVoodoo2Panel extends StatefulWidget {
-  const DGVoodoo2Panel({super.key});
+  const DGVoodoo2Panel({super.key, required this.expansion});
+
+  final Expansion expansion;
 
   @override
   State<DGVoodoo2Panel> createState() => _DGVoodoo2PanelState();
 }
 
 class _DGVoodoo2PanelState extends State<DGVoodoo2Panel> {
-  final bool _isInstalled = false;
+  bool get _isInstalled => dgVoodoo2.isInstalled(widget.expansion);
 
   @override
   Widget build(BuildContext context) {
@@ -20,19 +25,28 @@ class _DGVoodoo2PanelState extends State<DGVoodoo2Panel> {
         const SizedBox(height: 8.0),
         Button(
             onPressed:
-                !_isInstalled ? null : () => debugPrint('pressed button'),
-            focusable: false,
+                !_isInstalled ? null : () => dgVoodoo2.open(widget.expansion),
             child: const Text("Open dgVoodoo2 Control Panel")),
       ]),
     );
   }
 
   Widget getInstallButton() {
-    if (true) {
-      return Button(child: const Text("Install dgVoodoo2"), onPressed: () {});
+    if (!_isInstalled) {
+      return Button(
+          child: const Text("Install dgVoodoo2"),
+          onPressed: () async {
+            await dgVoodoo2.install(widget.expansion);
+            setState(() {});
+          });
       // ignore: dead_code
     } else {
-      return Button(child: const Text("Uninstall dgVoodoo2"), onPressed: () {});
+      return Button(
+          child: const Text("Uninstall dgVoodoo2"),
+          onPressed: () async {
+            await dgVoodoo2.uninstall(widget.expansion);
+            setState(() {});
+          });
     }
   }
 }

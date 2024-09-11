@@ -1,4 +1,5 @@
 import 'package:fear_patcher/core/game.dart';
+import 'package:fear_patcher/widgets/invidiual_options.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 
 import 'package:fear_patcher/widgets/resolution.dart';
@@ -31,6 +32,10 @@ class _SettingsPageState extends State<SettingsPage> {
 
     layout.addAll(getVisualSection());
 
+    layout.add(const SizedBox(height: 20.0));
+
+    layout.addAll(getInvidiualSection());
+
     return layout;
   }
 
@@ -50,19 +55,17 @@ class _SettingsPageState extends State<SettingsPage> {
         },
       ),
       const SizedBox(height: 10.0),
-      PatchCheckbox(
-        tooltipMessage:
-            "Replaces EXE with a patched version that allows more RAM to be utilized.",
-        name: "4GB RAM Fix",
-        future: Game.ramPatch,
-        onChanged: (value) {
-          Game.changeRamPatch(value).then((value) {
-            setState(() {});
-          });
-        },
-      ),
-      const SizedBox(height: 10.0),
-      const DGVoodoo2Panel(),
+      // PatchCheckbox(
+      //   tooltipMessage:
+      //       "Replaces EXE with a patched version that allows more RAM to be utilized.",
+      //   name: "4GB RAM Fix",
+      //   future: Game.ramPatch,
+      //   onChanged: (value) {
+      //     Game.changeRamPatch(value).then((value) {
+      //       setState(() {});
+      //     });
+      //   },
+      // ),
     ];
   }
 
@@ -76,6 +79,19 @@ class _SettingsPageState extends State<SettingsPage> {
           message:
               "Increases the text scale at higher resolutions to make it more legible.",
           child: TextFixWidget()),
+    ];
+  }
+
+  List<Widget> getInvidiualSection() {
+    return [
+      const Text("Invidiual Options",
+          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+      const SizedBox(height: 20.0),
+      const InvidiualOptions(optionsFor: Expansion.base),
+      const SizedBox(height: 40.0),
+      const InvidiualOptions(optionsFor: Expansion.xp),
+      const SizedBox(height: 40.0),
+      const InvidiualOptions(optionsFor: Expansion.xp2),
     ];
   }
 }
