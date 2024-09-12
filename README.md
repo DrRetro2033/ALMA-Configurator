@@ -2,7 +2,7 @@
 
 ## What is ALMA?
 
-ALMA is a flutter app that simply helps with configuring and patching the original F.E.A.R. game and it's expansions with fixes from (PCGamingWiki)[https://www.pcgamingwiki.com/wiki/F.E.A.R.] page. Its not complex at all, however it does improve stability and performance drastically.
+ALMA is a flutter app that simply helps with configuring and patching the original F.E.A.R. game and it's expansions with fixes from [PCGamingWiki](https://www.pcgamingwiki.com/wiki/F.E.A.R.) page. Its not complex at all, however it does improve stability and performance drastically.
 
 ## Why create ALMA?
 
