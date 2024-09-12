@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:fluent_ui/fluent_ui.dart';
+import 'package:markdown_widget/markdown_widget.dart';
 
 class AboutPage extends StatelessWidget {
   const AboutPage({super.key});
@@ -58,7 +59,15 @@ class AboutPage extends StatelessWidget {
                 }),
           ],
         ),
-        const SizedBox(height: 100.0),
+        const MarkdownWidget(shrinkWrap: true, data: """
+  # Credits
+  ## References
+  - [PCGamingWiki](https://www.pcgamingwiki.com/wiki/F.E.A.R.)
+
+  ## Patches and Tools
+  - [dgVoodoo2 by dege](https://dege.fw.hu/)
+  - [DirectInput FPS Fix by Methanhydrat](https://community.pcgamingwiki.com/files/file/789-directinput-fps-fix/)
+"""),
         Text(
           """
 This project is a fan-made work and is not affiliated with, endorsed by, or sponsored by Monolith Productions, Warner Bros. Interactive Entertainment, or any other entities associated with the development and distribution of F.E.A.R. and its expansions. All trademarks, logos, and game content related to F.E.A.R. and its expansions are the property of their respective owners.

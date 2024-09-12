@@ -34,12 +34,12 @@ class ResolutionWidget extends StatefulWidget {
 class _ResolutionWidgetState extends State<ResolutionWidget> {
   String get currentlySelectedRatio => _getRatio();
   set currentlySelectedRatio(String value) {
-    Config().resolution = ResolutionWidget.resolutions[value]![0];
+    Settings().resolution = ResolutionWidget.resolutions[value]![0];
   }
 
   int get currentlySelectedResolution => _findSelectedResolution();
   set currentlySelectedResolution(int value) {
-    Config().resolution =
+    Settings().resolution =
         ResolutionWidget.resolutions[currentlySelectedRatio]![value];
   }
 
@@ -96,7 +96,7 @@ class _ResolutionWidgetState extends State<ResolutionWidget> {
 
   int _findSelectedResolution() {
     int index = 0;
-    Resolution resolution = Config().resolution;
+    Resolution resolution = Settings().resolution;
     print(resolution);
     for (var key in ResolutionWidget.resolutions.keys) {
       if (ResolutionWidget.resolutions[key]!.contains(resolution)) {
@@ -108,7 +108,7 @@ class _ResolutionWidgetState extends State<ResolutionWidget> {
   }
 
   String _getRatio() {
-    Resolution resolution = Config().resolution;
+    Resolution resolution = Settings().resolution;
     for (var key in ResolutionWidget.resolutions.keys) {
       if (ResolutionWidget.resolutions[key]!.contains(resolution)) {
         return key;

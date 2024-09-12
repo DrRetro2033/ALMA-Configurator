@@ -39,6 +39,15 @@ class _InvidiualOptionsState extends State<InvidiualOptions> {
                 });
               }),
           const SizedBox(height: 16.0),
+          Checkbox(
+              checked: widget.manifest.disableFullScreenOptimization,
+              content: const Text("Disable Full Screen Optimization"),
+              onChanged: (value) {
+                setState(() {
+                  widget.manifest.disableFullScreenOptimization = value!;
+                });
+              }),
+          const SizedBox(height: 16.0),
           DGVoodoo2Panel(expansion: widget.optionsFor),
           const SizedBox(height: 10.0),
           const Divider(direction: Axis.horizontal)

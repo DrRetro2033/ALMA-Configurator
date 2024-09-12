@@ -1,16 +1,15 @@
-# fear_patcher
+# ALMA Configurator
 
-A new Flutter project.
+## What is ALMA?
 
-## Getting Started
+ALMA is a flutter app that simply helps with configuring and patching the original F.E.A.R. game and it's expansions with fixes from (PCGamingWiki)[https://www.pcgamingwiki.com/wiki/F.E.A.R.] page. Its not complex at all, however it does improve stability and performance drastically.
 
-This project is a starting point for a Flutter application.
+## Why create ALMA?
 
-A few resources to get you started if this is your first Flutter project:
+The goal of ALMA is just to make playing F.E.A.R simple, without needing to troubleshoot. Its not only designed to make it easier to recommend F.E.A.R to friends and family, but also for myself. While I can debug and manually tweak each game to work flawlessly, I sometimes just want to reinstall F.E.A.R and start playing.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## Future Plans for ALMA
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+1. Add key rebinding to ALMA, so the same key binds are shared between all three games.
+2. Have a graphics section in settings.
+3. Even more tweaks.

@@ -1,6 +1,6 @@
 {
-     "name": "ALMA Patcher",
-     "short_name": "ALMA Patcher",
+     "name": "ALMA Configurator",
+     "short_name": "ALMA Configurator",
      "start_url": ".",
      "display": "standalone",
      "background_color": "#0175C2",

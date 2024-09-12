@@ -1,22 +1,10 @@
 import 'dart:io';
 import 'package:fear_patcher/extensions.dart';
 
-class Config {
-  static const String configPathFEAR =
-      "C:/Users/Public/Documents/Monolith Productions/FEAR/settings.cfg";
-  static const String configPathFEARXP =
-      "C:/Users/Public/Documents/TimeGate Studios/FEARXP/settings.cfg";
-  static const String configPathFEARXP2 =
-      "C:/Users/Public/Documents/TimeGate Studios/FEARXP2/settings.cfg";
-
-  Resolution get resolution =>
-      Resolution(_loadConfig()["ScreenWidth"], _loadConfig()["ScreenHeight"]);
-  set resolution(Resolution resolution) {
-    Map<String, dynamic> config = _loadConfig();
-    config["ScreenWidth"] = resolution.width;
-    config["ScreenHeight"] = resolution.height;
-    _saveConfig(config);
-  }
+sealed class Config {
+  String get configPathFEAR => "";
+  String get configPathFEARXP => "";
+  String get configPathFEARXP2 => "";
 
   Config() {
     _init();
@@ -45,6 +33,9 @@ class Config {
 
   void _saveConfig(Map<String, dynamic> config) {
     final file = File(configPathFEAR);
+    if (!file.existsSync()) {
+      file.createSync();
+    }
     file.writeAsStringSync("");
     for (String key in config.keys) {
       bool isFinal = config.keys.last == key;
@@ -60,6 +51,27 @@ class Config {
     }
     File(configPathFEAR).copySync(configPathFEARXP);
     File(configPathFEAR).copySync(configPathFEARXP2);
+  }
+}
+
+class Settings extends Config {
+  @override
+  String get configPathFEAR =>
+      "C:/Users/Public/Documents/Monolith Productions/FEAR/settings.cfg";
+  @override
+  String get configPathFEARXP =>
+      "C:/Users/Public/Documents/TimeGate Studios/FEARXP/settings.cfg";
+  @override
+  String get configPathFEARXP2 =>
+      "C:/Users/Public/Documents/TimeGate Studios/FEARXP2/settings.cfg";
+
+  Resolution get resolution =>
+      Resolution(_loadConfig()["ScreenWidth"], _loadConfig()["ScreenHeight"]);
+  set resolution(Resolution resolution) {
+    Map<String, dynamic> config = _loadConfig();
+    config["ScreenWidth"] = resolution.width;
+    config["ScreenHeight"] = resolution.height;
+    _saveConfig(config);
   }
 }
 
@@ -81,5 +93,57 @@ class Resolution {
       return width == other.width && height == other.height;
     }
     return false;
+  }
+}
+
+enum WindowMode {
+  fullscreen,
+  windowed,
+  borderless,
+}
+
+class AutoExec extends Config {
+  @override
+  String get configPathFEAR =>
+      "C:/Users/Public/Documents/Monolith Productions/FEAR/autoexec.cfg";
+
+  @override
+  String get configPathFEARXP =>
+      "C:/Users/Public/Documents/TimeGate Studios/FEARXP/autoexec.cfg";
+
+  @override
+  String get configPathFEARXP2 =>
+      "C:/Users/Public/Documents/TimeGate Studios/FEARXP2/autoexec.cfg";
+
+  WindowMode get windowMode => _getWindowMode();
+  set windowMode(WindowMode mode) {
+    Map<String, dynamic> config = _loadConfig();
+    config["Windowed"] = mode.index;
+    _saveConfig(config);
+  }
+
+  WindowMode _getWindowMode() {
+    Map<String, dynamic> config = _loadConfig();
+    if (!config.containsKey("Windowed")) {
+      return WindowMode.fullscreen;
+    } else {
+      if (config["Windowed"] == 1) {
+        return WindowMode.windowed;
+      } else if (config["Windowed"] == 2) {
+        return WindowMode.borderless;
+      }
+    }
+    return WindowMode.fullscreen;
+  }
+
+  String getWindowModeString(WindowMode windowMode) {
+    switch (windowMode) {
+      case WindowMode.fullscreen:
+        return "Fullscreen";
+      case WindowMode.windowed:
+        return "Windowed";
+      case WindowMode.borderless:
+        return "Borderless";
+    }
   }
 }

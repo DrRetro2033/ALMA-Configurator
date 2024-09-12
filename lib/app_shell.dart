@@ -23,11 +23,11 @@ class _AppShellState extends State<AppShell> {
         icon: const Icon(FluentIcons.settings),
         title: const Text("Settings"),
         body: const SizedBox.shrink()),
-    PaneItem(
-        key: const ValueKey("/guides"),
-        icon: const Icon(FluentIcons.sticky_notes_outline_app_icon),
-        title: const Text("Guides"),
-        body: const SizedBox.shrink()),
+    // PaneItem(
+    //     key: const ValueKey("/guides"),
+    //     icon: const Icon(FluentIcons.sticky_notes_outline_app_icon),
+    //     title: const Text("Guides"),
+    //     body: const SizedBox.shrink()),
     PaneItem(
         key: const ValueKey("/about"),
         icon: const Icon(FluentIcons.info),
@@ -63,7 +63,7 @@ class _AppShellState extends State<AppShell> {
             const WindowButtons(),
           ],
         ),
-        title: const Text("ALMA Patcher",
+        title: const Text("ALMA Configurator",
             style: TextStyle(
                 color: Colors.white,
                 fontSize: 28,

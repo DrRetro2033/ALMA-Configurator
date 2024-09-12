@@ -1,5 +1,5 @@
 import "package:fluent_ui/fluent_ui.dart";
-import "package:fear_patcher/core/dgvoodoo2.dart";
+import "package:fear_patcher/core/libraries.dart";
 
 import 'package:fear_patcher/core/game.dart';
 
@@ -21,18 +21,18 @@ class _DGVoodoo2PanelState extends State<DGVoodoo2Panel> {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
+          const Text("dgVoodoo2", style: TextStyle(fontSize: 20.0)),
+          const SizedBox(height: 8.0),
           Tooltip(
               message:
-                  "dgVoodoo2 is a graphics wrapper, designed to help fix older games that developed for older hardware.",
+                  "dgVoodoo2 is a graphics wrapper, designed to help fix older games that were developed for older hardware.",
               child: getInstallButton()),
-          const SizedBox(height: 8.0),
-          Button(
-              onPressed:
-                  !_isInstalled ? null : () => dgVoodoo2.open(widget.expansion),
-              child: const Text("Open dgVoodoo2 Control Panel")),
-          const SizedBox(height: 20.0),
-          Text("Advanced Options",
-              style: FluentTheme.of(context).typography.bodyLarge),
+          // const SizedBox(height: 8.0),
+          // Button(
+          //     onPressed:
+          //         !_isInstalled ? null : () => dgVoodoo2.open(widget.expansion),
+          //     child: const Text("Open dgVoodoo2 Control Panel")),
+          const SizedBox(height: 10.0),
           Text(
               "Frame Rate Cap: ${dgVoodoo2.getFrameRateCap(widget.expansion) == 0 ? "Unlimited" : dgVoodoo2.getFrameRateCap(widget.expansion)} FPS"),
           SizedBox(
@@ -49,6 +49,16 @@ class _DGVoodoo2PanelState extends State<DGVoodoo2Panel> {
                 min: 0,
                 max: 144.0),
           ),
+          const SizedBox(height: 8.0),
+          Checkbox(
+              content: const Text("Force VSync"),
+              checked: dgVoodoo2.vsync(widget.expansion),
+              onChanged: !_isInstalled
+                  ? null
+                  : (value) {
+                      dgVoodoo2.setVsync(widget.expansion, value!);
+                      setState(() {});
+                    })
         ]);
   }
 
@@ -58,9 +68,6 @@ class _DGVoodoo2PanelState extends State<DGVoodoo2Panel> {
           child: const Text("Install dgVoodoo2"),
           onPressed: () async {
             await dgVoodoo2.install(widget.expansion);
-            if (mounted) {
-              showContentDialog(context);
-            }
             setState(() {});
           });
       // ignore: dead_code
@@ -72,25 +79,5 @@ class _DGVoodoo2PanelState extends State<DGVoodoo2Panel> {
             setState(() {});
           });
     }
-  }
-
-  void showContentDialog(BuildContext context) async {
-    // ignore: unused_local_variable
-    final result = await showDialog<String>(
-      context: context,
-      builder: (context) => ContentDialog(
-        title: const Text('Notice'),
-        content: const Text(
-          'Before using dgVoodoo2, please go to Guides and read about the "IMPORTANT STEP", before configuring anything in the dgVoodoo2 Control Panel.',
-        ),
-        actions: [
-          FilledButton(
-            child: const Text('Ok'),
-            onPressed: () => Navigator.pop(context),
-          ),
-        ],
-      ),
-    );
-    setState(() {});
   }
 }
