@@ -5,6 +5,9 @@ import 'package:flutter/services.dart';
 
 // ignore: camel_case_types
 class dgVoodoo2 {
+  static const String fpsLimitSection =
+      "FPSLimit                             = ";
+
   static bool _isInstalled(Expansion expansion) {
     if (File("${Game.getDirForExpansion(expansion)}/dgVoodooCpl.exe")
         .existsSync()) {
@@ -85,5 +88,30 @@ class dgVoodoo2 {
     if (dllFile.existsSync()) {
       dllFile.deleteSync();
     }
+  }
+
+  static int getFrameRateCap(Expansion expansion) {
+    File conf = File("${Game.getDirForExpansion(expansion)}/dgVoodoo.conf");
+    if (conf.existsSync()) {
+      String fpsLimit = conf
+          .readAsLinesSync()
+          .firstWhere((String e) => e.startsWith(fpsLimitSection));
+      return int.parse(fpsLimit.replaceFirst(fpsLimitSection, ""));
+    }
+    return 0;
+  }
+
+  static Future<void> setFrameRateCap(Expansion expansion, int fpsLimit) async {
+    File conf = File("${Game.getDirForExpansion(expansion)}/dgVoodoo.conf");
+    if (!conf.existsSync()) {
+      return;
+    }
+    List<String> lines = conf.readAsLinesSync();
+    int index = lines.indexWhere((String e) => e.startsWith(fpsLimitSection));
+    if (index == -1) {
+      return;
+    }
+    lines[index] = fpsLimitSection + fpsLimit.toString();
+    conf.writeAsStringSync(lines.join("\n"));
   }
 }

@@ -5,7 +5,6 @@ import 'package:fluent_ui/fluent_ui.dart';
 import 'package:fear_patcher/widgets/resolution.dart';
 import 'package:fear_patcher/widgets/text_fix.dart';
 import 'package:fear_patcher/widgets/patch_checkbox.dart';
-import 'package:fear_patcher/widgets/dgvoodoo2_panel.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});

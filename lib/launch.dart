@@ -6,44 +6,73 @@ class LaunchPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return const Center(
         child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Button(
-          onPressed: () {
-            Game.launch(Expansion.base);
-          },
-          child: const Text(
-            "Launch F.E.A.R.",
-            textAlign: TextAlign.center,
-          ),
-        ),
-        const SizedBox(
+        LaunchButton(expansion: Expansion.base),
+        SizedBox(
           height: 20.0,
         ),
-        Button(
-          onPressed: () {
-            Game.launch(Expansion.xp);
-          },
-          child: const Text(
-            "Launch Extraction Point.",
-            textAlign: TextAlign.center,
-          ),
-        ),
-        const SizedBox(
+        LaunchButton(expansion: Expansion.xp),
+        SizedBox(
           height: 10.0,
         ),
-        Button(
-          onPressed: () {
-            Game.launch(Expansion.xp2);
-          },
-          child: const Text(
-            "Launch Perseus Mandate.",
-            textAlign: TextAlign.center,
-          ),
-        ),
+        LaunchButton(expansion: Expansion.xp2),
       ],
     ));
+  }
+}
+
+class LaunchButton extends StatelessWidget {
+  const LaunchButton({super.key, required this.expansion});
+
+  final Expansion expansion;
+
+  @override
+  Widget build(BuildContext context) {
+    return Button(
+      onPressed: () {
+        Game.launch(expansion);
+      },
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Image.asset(width: 30.0, height: 30.0, getExpansionIconPath()),
+          const SizedBox(
+            width: 10.0,
+          ),
+          Text(
+            "Launch ${getExpansionName()}.",
+            textAlign: TextAlign.center,
+            style: FluentTheme.of(context).typography.subtitle,
+          ),
+        ],
+      ),
+    );
+  }
+
+  String getExpansionName() {
+    switch (expansion) {
+      case Expansion.base:
+        return "F.E.A.R";
+      case Expansion.xp:
+        return "Extraction Point";
+      case Expansion.xp2:
+        return "Perseus Mandate";
+    }
+  }
+
+  String getExpansionIconPath() {
+    switch (expansion) {
+      case Expansion.base:
+        return "assets/images/fear_icon.png";
+      case Expansion.xp:
+        return "assets/images/fearxp_icon.png";
+      case Expansion.xp2:
+        return "assets/images/fearxp2_icon.png";
+    }
   }
 }

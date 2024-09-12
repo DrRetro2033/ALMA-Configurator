@@ -38,7 +38,7 @@ class _InvidiualOptionsState extends State<InvidiualOptions> {
                   widget.manifest.runAsAdmin = value!;
                 });
               }),
-          const SizedBox(height: 10.0),
+          const SizedBox(height: 16.0),
           DGVoodoo2Panel(expansion: widget.optionsFor),
           const SizedBox(height: 10.0),
           const Divider(direction: Axis.horizontal)

@@ -80,7 +80,7 @@ class Game {
     if (!File("$steamPath/dinput8.dll").existsSync()) {
       return false;
     }
-    Uint8List currentDll = File("$steamPath/dinput8.dll").readAsBytesSync();
+    Uint8List currentDll = File("$dirPath/dinput8.dll").readAsBytesSync();
     Uint8List patchedDll = (await rootBundle.load("assets/patches/dinput8.dll"))
         .buffer
         .asUint8List();
@@ -94,12 +94,35 @@ class Game {
 
   static Future<void> changeDirectInputPatch(bool apply) async {
     if (apply) {
-      File("$steamPath/dinput8.dll").writeAsBytesSync(
+      if (!File("$dirPath/dinput8.dll").existsSync()) {
+        await File("$dirPath/dinput8.dll").create();
+      }
+      File("$dirPath/dinput8.dll").writeAsBytesSync(
+          (await rootBundle.load("assets/patches/dinput8.dll"))
+              .buffer
+              .asUint8List());
+      if (!File("$dirPathXP/dinput8.dll").existsSync()) {
+        await File("$dirPathXP/dinput8.dll").create();
+      }
+      File("$dirPathXP/dinput8.dll").writeAsBytesSync(
+          (await rootBundle.load("assets/patches/dinput8.dll"))
+              .buffer
+              .asUint8List());
+      if (!File("$dirPathXP2/dinput8.dll").existsSync()) {
+        await File("$dirPathXP2/dinput8.dll").create();
+      }
+      File("$dirPathXP2/dinput8.dll").writeAsBytesSync(
           (await rootBundle.load("assets/patches/dinput8.dll"))
               .buffer
               .asUint8List());
     } else {
-      await File("$steamPath/dinput8.dll").delete();
+      await File("$dirPath/dinput8.dll").delete();
+      if (File("$dirPathXP2/dinput8.dll").existsSync()) {
+        await File("$dirPathXP2/dinput8.dll").delete();
+      }
+      if (File("$dirPathXP/dinput8.dll").existsSync()) {
+        await File("$dirPathXP/dinput8.dll").delete();
+      }
     }
     return;
   }

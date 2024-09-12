@@ -31,9 +31,10 @@ class _TextFixWidgetState extends State<TextFixWidget> {
                   text: Text(TextFixWidget.textFixes[e]!),
                   selected: currentlySelectedTextFix == e,
                   onPressed: () async {
-                    await Game.changeTextScale(e);
-                    setState(() {
-                      currentlySelectedTextFix = e;
+                    Game.changeTextScale(e).then((value) {
+                      setState(() {
+                        currentlySelectedTextFix = e;
+                      });
                     });
                   });
             }).toList(),
