@@ -2,6 +2,7 @@ import 'dart:typed_data';
 
 import 'package:fear_patcher/core/app_manifest.dart';
 import 'package:flutter/services.dart' show rootBundle;
+import 'package:win32_registry/win32_registry.dart';
 import 'dart:io';
 
 enum Expansion { base, xp, xp2 }
@@ -9,15 +10,32 @@ enum Expansion { base, xp, xp2 }
 enum TextScale { none, big, bigger }
 
 class Game {
-  static const String steamPath =
-      "C:/Program Files (x86)/Steam/steamapps/common/FEAR Ultimate Shooter Edition";
-
-  static String get dirPath => steamPath;
+  static const keyPath =
+      r'SOFTWARE\WOW6432Node\Monolith Productions\FEAR\1.00.0000';
+  static String get dirPath => _getInstallPath();
   static String get gamePath => "$dirPath/FEAR.exe";
-  static String get dirPathXP => "$steamPath/FEARXP";
+  static String get dirPathXP => "$dirPath/FEARXP";
   static String get gamePathXP => "$dirPathXP/FEARXP.exe";
-  static String get dirPathXP2 => "$steamPath/FEARXP2";
+  static String get dirPathXP2 => "$dirPath/FEARXP2";
   static String get gamePathXP2 => "$dirPathXP2/FEARXP2.exe";
+
+  static String _getInstallPath() {
+    final key = Registry.openPath(RegistryHive.localMachine, path: keyPath);
+    final value = key.getValueAsString("installdir") ?? "";
+    key.close();
+    return value;
+  }
+
+  static bool isGameInstalled() {
+    final key = Registry.openPath(RegistryHive.localMachine, path: keyPath);
+    final value = key.getValueAsString("installdir");
+    key.close();
+    if (value == null) {
+      return false;
+    }
+
+    return true;
+  }
 
   static String getDirForExpansion(Expansion expansion) {
     switch (expansion) {
@@ -77,7 +95,7 @@ class Game {
   }
 
   static Future<bool> _isDirectInputPatched() async {
-    if (!File("$steamPath/dinput8.dll").existsSync()) {
+    if (!File("$dirPath/dinput8.dll").existsSync()) {
       return false;
     }
     Uint8List currentDll = File("$dirPath/dinput8.dll").readAsBytesSync();

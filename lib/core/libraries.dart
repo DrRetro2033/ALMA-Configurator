@@ -188,7 +188,7 @@ class dgVoodoo2 {
   }
 }
 
-class DSOAL {
+class IndirectSound {
   static Future<bool> _isInstalled(Expansion expansion) async {
     if (File("${Game.getDirForExpansion(expansion)}/dsound.dll").existsSync()) {
       return true;
@@ -219,21 +219,16 @@ class DSOAL {
   }
 
   static Future<void> _install(String path) async {
-    ByteData dll1 = await rootBundle.load("assets/patches/DSOAL/dsound.dll");
-    ByteData dll2 =
-        await rootBundle.load("assets/patches/DSOAL/dsoal-aldrv.dll");
-    ByteData conf = await rootBundle.load("assets/patches/DSOAL/alsoft.ini");
+    ByteData dll1 =
+        await rootBundle.load("assets/patches/IndirectSound/dsound.dll");
+    ByteData conf =
+        await rootBundle.load("assets/patches/IndirectSound/dsound.ini");
 
     File dll1FIle = File("$path/dsound.dll");
-    File dll2File = File("$path/dsoal-aldrv.dll");
-    File confFile = File("$path/alsoft.ini");
+    File confFile = File("$path/dsound.ini");
 
     if (dll1FIle.existsSync()) {
       dll1FIle.deleteSync();
-    }
-
-    if (dll2File.existsSync()) {
-      dll2File.deleteSync();
     }
 
     if (confFile.existsSync()) {
@@ -241,25 +236,18 @@ class DSOAL {
     }
 
     dll1FIle.createSync();
-    dll2File.createSync();
     confFile.createSync();
 
     dll1FIle.writeAsBytesSync(dll1.buffer.asUint8List());
-    dll2File.writeAsBytesSync(dll2.buffer.asUint8List());
     confFile.writeAsBytesSync(conf.buffer.asUint8List());
   }
 
   static Future<void> _uninstall(String path) async {
     File dll1File = File("$path/dsound.dll");
-    File dll2File = File("$path/dsoal-aldrv.dll");
-    File confFile = File("$path/alsoft.ini");
+    File confFile = File("$path/dsound.ini");
 
     if (dll1File.existsSync()) {
       dll1File.deleteSync();
-    }
-
-    if (dll2File.existsSync()) {
-      dll2File.deleteSync();
     }
 
     if (confFile.existsSync()) {

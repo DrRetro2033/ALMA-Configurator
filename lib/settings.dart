@@ -1,5 +1,6 @@
 import 'package:fear_patcher/core/config.dart';
 import 'package:fear_patcher/core/game.dart';
+import 'package:fear_patcher/core/libraries.dart';
 // import 'package:fear_patcher/core/libraries.dart';
 import 'package:fear_patcher/widgets/invidiual_options.dart';
 import 'package:fluent_ui/fluent_ui.dart';
@@ -64,26 +65,26 @@ class _SettingsPageState extends State<SettingsPage> {
           });
         },
       ),
-      // const SizedBox(height: 10.0),
+      const SizedBox(height: 10.0),
       // PatchCheckbox(
       //   name: "EAX Support",
       //   tooltipMessage:
       //       "Tricks the games into thinking your computer has EAX support, which allows the games to have surround sound on modern hardware.",
-      //   future: DSOAL.isInstalled(),
+      //   future: IndirectSound.isInstalled(),
       //   onChanged: (p0) {
       //     if (p0) {
-      //       DSOAL.install().then(
+      //       IndirectSound.install().then(
       //         (_) {
       //           setState(() {});
       //         },
       //       );
       //     } else {
-      //       DSOAL.uninstall().then((_) {
+      //       IndirectSound.uninstall().then((_) {
       //         setState(() {});
       //       });
       //     }
       //   },
-      // )
+      // ),
       // PatchCheckbox(
       //   tooltipMessage:
       //       "Replaces EXE with a patched version that allows more RAM to be utilized.",
