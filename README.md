@@ -4,6 +4,9 @@
 
 ALMA is a flutter app that simply helps with configuring and patching the original F.E.A.R. game and it's expansions with fixes from [PCGamingWiki](https://www.pcgamingwiki.com/wiki/F.E.A.R.). It's not complex, however it does improve stability and performance drastically without too much effort.
 
+## IMPORTANT!
+The launch page only works with the steam version.
+
 ## Images:
 
 ![Launch Page](image-2.png)
