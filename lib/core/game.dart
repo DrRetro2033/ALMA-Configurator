@@ -19,6 +19,25 @@ class Game {
   static String get dirPathXP2 => "$dirPath/FEARXP2";
   static String get gamePathXP2 => "$dirPathXP2/FEARXP2.exe";
 
+  static const List<String> gameDefaultArchives = [
+    "FEAR_1.Arch00",
+    "FEAR_2.Arch00",
+    "FEAR_3.Arch00",
+    "FEAR_4.Arch00",
+    "FEAR_5.Arch00",
+    "FEAR_6.Arch00",
+    "FEAR_7.Arch00",
+    "FEAR_8.Arch00",
+    "FEARA_1.Arch00",
+    "FEARA_2.Arch00",
+    "FEARA_3.Arch00",
+    "FEARA_4.Arch00",
+    "FEARA_5.Arch00",
+    "FEARA_6.Arch00",
+    "FEARA_7.Arch00",
+    "FEARA_8.Arch00",
+  ];
+
   static String _getInstallPath() {
     final key = Registry.openPath(RegistryHive.localMachine, path: keyPath);
     final value = key.getValueAsString("installdir") ?? "";
@@ -264,5 +283,10 @@ class Game {
       case Expansion.xp2:
         return AppManifest(gamePathXP2);
     }
+  }
+
+  static List<String> getArchives(Expansion expansion) {
+    List<String> archives = [];
+    return archives;
   }
 }

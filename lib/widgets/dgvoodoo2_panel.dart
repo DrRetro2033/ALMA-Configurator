@@ -1,6 +1,6 @@
 import "package:fluent_ui/fluent_ui.dart";
 import "package:fear_patcher/core/libraries.dart";
-
+import "package:flutter/material.dart" as material;
 import 'package:fear_patcher/core/game.dart';
 
 class DGVoodoo2Panel extends StatefulWidget {
@@ -21,7 +21,8 @@ class _DGVoodoo2PanelState extends State<DGVoodoo2Panel> {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          const Text("dgVoodoo2", style: TextStyle(fontSize: 20.0)),
+          const Text("dgVoodoo2",
+              style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold)),
           const SizedBox(height: 8.0),
           Tooltip(
               message:
@@ -33,6 +34,23 @@ class _DGVoodoo2PanelState extends State<DGVoodoo2Panel> {
           //         !_isInstalled ? null : () => dgVoodoo2.open(widget.expansion),
           //     child: const Text("Open dgVoodoo2 Control Panel")),
           const SizedBox(height: 10.0),
+          const Text("Visuals", style: TextStyle(fontSize: 20.0)),
+          // DropDownButton(leading: getFullScreenIcon(), items: [
+          //   MenuFlyoutItem(
+          //       leading: const Icon(material.Icons.open_in_full_sharp),
+          //       text: const Text("Full Screen"),
+          //       onPressed: () {
+          //         dgVoodoo2.setFullscreen(widget.expansion, true);
+          //         setState(() {});
+          //       }),
+          //   MenuFlyoutItem(
+          //       leading: const Icon(material.Icons.desktop_windows_sharp),
+          //       text: const Text("Windowed"),
+          //       onPressed: () {
+          //         dgVoodoo2.setFullscreen(widget.expansion, false);
+          //         setState(() {});
+          //       }),
+          // ]),
           Text(
               "Frame Rate Cap: ${dgVoodoo2.getFrameRateCap(widget.expansion) == 0 ? "Unlimited" : dgVoodoo2.getFrameRateCap(widget.expansion)} FPS"),
           SizedBox(
@@ -58,8 +76,32 @@ class _DGVoodoo2PanelState extends State<DGVoodoo2Panel> {
                   : (value) {
                       dgVoodoo2.setVsync(widget.expansion, value!);
                       setState(() {});
-                    })
+                    }),
+          const SizedBox(height: 8.0),
+          const Row(
+            mainAxisSize: MainAxisSize.min,
+          ),
         ]);
+  }
+
+  Widget getFullScreenIcon() {
+    if (dgVoodoo2.fullscreen(widget.expansion)) {
+      return const Row(
+        children: [
+          Text("Full Screen"),
+          SizedBox(width: 10.0),
+          Icon(material.Icons.open_in_full_sharp),
+        ],
+      );
+    } else {
+      return const Row(
+        children: [
+          Text("Windowed"),
+          SizedBox(width: 10.0),
+          Icon(material.Icons.desktop_windows_sharp),
+        ],
+      );
+    }
   }
 
   Widget getInstallButton() {

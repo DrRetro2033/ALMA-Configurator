@@ -1,7 +1,4 @@
-import 'package:fear_patcher/core/config.dart';
 import 'package:fear_patcher/core/game.dart';
-import 'package:fear_patcher/core/libraries.dart';
-// import 'package:fear_patcher/core/libraries.dart';
 import 'package:fear_patcher/widgets/invidiual_options.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 
@@ -20,7 +17,7 @@ class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.symmetric(horizontal: 8.0),
       child: ListView(
         children: getFinalLayout(),
       ),
@@ -104,26 +101,6 @@ class _SettingsPageState extends State<SettingsPage> {
       const Text("Visuals",
           style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
       const SizedBox(height: 10.0),
-      const Text("Window Mode"),
-      const SizedBox(height: 2.0),
-      Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          DropDownButton(
-              leading:
-                  Text(AutoExec().getWindowModeString(AutoExec().windowMode)),
-              items: WindowMode.values.map((e) {
-                return MenuFlyoutItem(
-                    text: Text(AutoExec().getWindowModeString(e)),
-                    selected: AutoExec().windowMode == e,
-                    onPressed: () {
-                      AutoExec().windowMode = e;
-                      setState(() {});
-                    });
-              }).toList())
-        ],
-      ),
-      const SizedBox(height: 12.0),
       const ResolutionWidget(),
       const SizedBox(height: 10.0),
       const Tooltip(

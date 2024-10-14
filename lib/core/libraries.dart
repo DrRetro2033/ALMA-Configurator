@@ -10,7 +10,8 @@ class dgVoodoo2 {
   static const String watermarkSection =
       "dgVoodooWatermark                   = ";
   static const String vsyncSection = "ForceVerticalSync                   = ";
-
+  static const String fullscreenSection =
+      "FullScreenMode                       = ";
   static bool _isInstalled(Expansion expansion) {
     if (File("${Game.getDirForExpansion(expansion)}/D3D9.dll").existsSync()) {
       return true;
@@ -185,6 +186,31 @@ class dgVoodoo2 {
   static void _writeConfFile(Expansion expansion, List<String> lines) {
     File conf = File("${Game.getDirForExpansion(expansion)}/dgVoodoo.conf");
     conf.writeAsStringSync(lines.join("\n"));
+  }
+
+  static bool fullscreen(Expansion expansion) {
+    int index = _findLineInConfFile(expansion, fullscreenSection);
+    if (index == -1) {
+      return false;
+    }
+    return _getLinesInConfFile(expansion)[index]
+            .replaceFirst(fullscreenSection, "") ==
+        "true";
+  }
+
+  static void setFullscreen(Expansion expansion, bool fullscreen) {
+    int index = 0;
+    List<String> lines = _getLinesInConfFile(expansion);
+    int offset = 0;
+    while (index != -1) {
+      index = _findLineInConfFile(expansion, fullscreenSection, start: offset);
+      offset = index + 1;
+      if (index == -1) {
+        break;
+      }
+      lines[index] = fullscreenSection + (fullscreen ? "true" : "false");
+    }
+    _writeConfFile(expansion, lines);
   }
 }
 
