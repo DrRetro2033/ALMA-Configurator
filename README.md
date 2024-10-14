@@ -6,8 +6,8 @@ ALMA is a flutter app that simply helps with configuring and patching the origin
 
 ## Images:
 
-![Launch Page](image-1.png)
-![Settings Page](image.png)
+![Launch Page](image-2.png)
+![Setting Page](image.png)
 
 ## Why create ALMA?
 
